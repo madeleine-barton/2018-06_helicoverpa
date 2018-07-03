@@ -34,3 +34,10 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+#==================================================================
+###MGBs additions
+##ignore the big .nc files with climate data
+.nc
+###ignore the shape files that start with GADM
+GADM*

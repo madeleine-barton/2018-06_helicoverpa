@@ -1,0 +1,15 @@
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/min_temp/2000.min_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/max_temp/2000.max_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/daily_rain/2000.daily_rain.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/min_temp/2001.min_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/max_temp/2001.max_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/daily_rain/2001.daily_rain.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/min_temp/2002.min_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/max_temp/2002.max_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/daily_rain/2002.daily_rain.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/min_temp/2003.min_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/max_temp/2003.max_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/daily_rain/2003.daily_rain.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/min_temp/2004.min_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/max_temp/2004.max_temp.nc
+https://s3-ap-southeast-2.amazonaws.com/silo-open-data/annual/daily_rain/2004.daily_rain.nc
