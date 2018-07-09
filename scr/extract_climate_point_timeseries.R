@@ -12,18 +12,21 @@ library(raster)
 library(data.table)
 
 
-point_timeseries<-function(indir, parameters, lat, lon){
-  climate_list<-list()
+point_timeseries<-function(stack, parameters, lat, lon){
   for (j in(1:length(parameters))){
-    filenames<-list.files(path = indir, pattern = parameters[j])
-    print(indir)
-    print(parameters[j])
-    print("the list of filenames:")
-    print(filenames)
-    pathname<-paste(indir, filenames, sep="")
-    print("This is the pathname:")
-    print(pathname)
-    b<- brick(pathname, varname="variable") #as a rasterbrick
+	if(typeof(stack)==typeof("filepath")){
+            filenames<-list.files(path = indir, pattern = parameters[j])
+	    print(indir)
+	    print(parameters[j])
+	    print("the list of filenames:")
+	    print(filenames)
+	    pathname<-paste(indir, filenames, sep="")
+	    print("This is the pathname:")
+	    print(pathname)
+	    b<- brick(pathname, varname="variable") #as a rasterbrick
+        }else{
+	    b<-brick(unlist(stack[[j]]))  
+  }
     #print(b)
     x<-raster::extract(b, SpatialPoints(cbind(lat, lon)))[1:nlayers(b)]
     #points.sp <- (as.data.frame(cbind(lon, lat)))
