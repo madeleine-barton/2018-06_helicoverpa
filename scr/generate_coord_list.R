@@ -9,7 +9,10 @@ library(raster)
 
 generate_coords<-function(stack){
 	if(typeof(stack)==typeof("filepath")){
-	    b<- brick(stack, varname="variable") #as a rasterbrick
+	    x<-unlist(strsplit(stack, "/")) #adjust splitting and indices where needed
+	    par<-x[length(x)]
+	    vname<-unlist(strsplit(par,"\\."))[1]  #remove .nc extention from filename
+	    b<- brick(stack, varname=vname) #as a rasterbrick
 	    p<- as.data.frame(rasterToPoints(b[[1]]))
 	    colnames(p)<-c("lon","lat","value")
 	    return(p[,1:2])

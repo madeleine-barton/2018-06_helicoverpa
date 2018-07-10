@@ -38,6 +38,9 @@ rsconnect/
 #==================================================================
 ###MGBs additions
 ##ignore the big .nc files with climate data
-.nc
+*.nc
 ###ignore the shape files that start with GADM
 GADM*
+gadm*
+##slurm output
+*.out

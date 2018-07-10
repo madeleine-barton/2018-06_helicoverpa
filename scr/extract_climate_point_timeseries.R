@@ -13,6 +13,7 @@ library(data.table)
 
 
 point_timeseries<-function(stack, parameters, lat, lon){
+	climate_list<-list()
   for (j in(1:length(parameters))){
 	if(typeof(stack)==typeof("filepath")){
             filenames<-list.files(path = indir, pattern = parameters[j])
