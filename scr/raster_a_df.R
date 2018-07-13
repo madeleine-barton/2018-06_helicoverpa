@@ -11,7 +11,7 @@ raster_a_df<-function(df){
   RR<-as.matrix(cbind(df[,2], df[,1], z), header=TRUE)
   colnames(RR)<-c("y","x","z")
   RDF<-data.frame(RR)
-  coordinates(RDF)<-~x+y
+  coordinates(RDF)<-~y+x
   gridded(RDF)<-TRUE
   RDF<-as(RDF, "SpatialGridDataFrame") # to full grid
   rast<-raster(RDF)

@@ -13,16 +13,19 @@ voltinism<-function(df){
 }
 
 heat_deaths<-function(df){
-     df1<-df %>%
-     group_by(SITE)%>%
-     summarise(lat = mean(lat), lon = mean(lon), heat_stress = max(as.numeric(heat_stress)))
-     return(df1)
+     x<-aggregate(as.numeric(as.character(df$heat_stress)), by=list(df$SITE),sum)$x
+     #df<-cbind(df, x)
+     #df1<-df %>%
+     #group_by(SITE)%>%
+     #summarise(lat = mean(lat), lon = mean(lon), heat_stress = sum(as.numeric(heat_stress)))
+     return(x)
 }
 
 cold_deaths<-function(df){
-     df1<-df %>%
-     group_by(SITE)%>%
-     summarise(lat = mean(lat), lon = mean(lon), cold_stress = max(as.numeric(cold_stress)))
-     return(df1)
+     x<-aggregate(as.numeric(as.character(df$cold_stress)), by=list(df$SITE),sum)$x
+     #df1<-df %>%
+     #group_by(SITE)%>%
+     #summarise(lat = mean(lat), lon = mean(lon), cold_stress = sum(as.numeric(cold_stress)))
+     return(x)
 }
 
