@@ -26,7 +26,7 @@ diapause_cond<-function(environ, cues, interval){
   Ta_term<-as.numeric(cues[3,21])
   
  temp<-list()
-  for (i in(1:length(df))){
+  for (i in(1:nrow(df))){
   #DL<-as.numeric(df$photophase[i])
   #season<-as.numeric(df$season[i])
   if(interval=="hour"){
@@ -43,12 +43,13 @@ diapause_cond<-function(environ, cues, interval){
      }
    }
   }
+ temp<-unlist(temp)
  print(DL_ind)
  print(DL_term)
  print(Ta_ind)
  print(Ta_term)
 # print(DL)
-# print(temp)
+ print(temp[1:50])
  print(season_ind)
  print(season_term)
 #determining whether the physical conditions are condusive 
@@ -56,9 +57,9 @@ diapause_cond<-function(environ, cues, interval){
 #1=yes, diapause
 #0=no, keep developing
 
- for (i in(1:length(df))){
+ for (i in(1:nrow(df))){
   DL<-as.numeric(df$photophase[i])
-  season<-as.numeric(df$season[i])
+  season<-df$season[i]
   TA<-temp[i]
  if (season_ind=="no_cue"){ 
   #if the increasing/decreasing photoperiod pattern doesn't matter for induction
