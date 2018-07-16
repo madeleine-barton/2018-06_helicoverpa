@@ -14,7 +14,6 @@ stack_params<- function(indir, parameter){
     XX<-paste(parameter[j])
     print(XX)
     filenames<-list.files(path = indir, pattern = XX)
-    print(filenames)
     #These files should be ordered chronologically
     # generate an empty stack to bind to
     inner<-stack()
@@ -27,8 +26,22 @@ stack_params<- function(indir, parameter){
       inner<-stack(inner,b)
     }
     stacks_combined[[j]]<-inner
-  }
+ }
   return(stacks_combined)
 }
 
-#stack_params(my_dir, my_param)
+
+#from the files that have been used, extract only the digits, i.e. the years 
+#assuming the filename has: "YYYY.parameter" in the title
+#returns a list of years (type = double)
+
+year_list<-function(indir, parameter){
+ print("started years function") 
+ filenames<-list.files(path = indir, pattern = paste(parameter[1]))
+ print(filenames)
+ years<-gsub("[^0-9]", "", filenames)
+ print(years)
+ return(years)
+}
+
+

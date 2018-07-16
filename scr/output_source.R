@@ -34,24 +34,30 @@ source('./raster_a_df.R')
 #Voltinism - generate raster and write to output file .nc extention
 library(raster)
 xx<-raster_a_df(df[,(2:4)])
-writeRaster(xx,filename="../data/outputs/rasters/2018_07_12_trial_Voltinism_armigera.nc", overwrite=TRUE,
+writeRaster(xx,filename="../data/outputs/rasters/2018_07_16_trial_Voltinism_armigera.nc", overwrite=TRUE,
 varname=colnames(df[4]))
 
 #Heat_stress - generate raster and write to output file .nc extention
 xx<-raster_a_df(df[,c(2,3,5)])
-writeRaster(xx,filename="../data/outputs/rasters/2018_07_12_trial_Heat_stress_armigera.nc", overwrite=TRUE,
+writeRaster(xx,filename="../data/outputs/rasters/2018_07_16_trial_Heat_stress_armigera.nc", overwrite=TRUE,
 varname=colnames(df[5]))
 
 #Cold_stress - generate raster and write to output file .nc extention
 xx<-raster_a_df(df[,c(2,3,6)])
-writeRaster(xx,filename="../data/outputs/rasters/2018_07_12_trial_Cold_stress_armigera.nc", overwrite=TRUE,
+writeRaster(xx,filename="../data/outputs/rasters/2018_07_16_trial_Cold_stress_armigera.nc", overwrite=TRUE,
 varname=colnames(df[6]))
 
 #Distribution - generate raster and write to output file .nc extention
-xx<-raster_a_df(df[,c(2,3,7)])
-writeRaster(xx,filename="../data/outputs/rasters/2018_07_12_trial_Distribution_armigera.nc", overwrite=TRUE,
-varname=colnames(df[7]))
+xx<-raster_a_df(df[,c(2,3,8)])
+xx
+writeRaster(xx,filename="../data/outputs/rasters/2018_07_16_trial_Distribution_armigera.nc", overwrite=TRUE,
+varname=colnames(df[8]))
 
+#Diapause - generate raster and write to output file .nc extention
+xx<-raster_a_df(df[,c(2,3,7)])
+xx
+writeRaster(xx, filename="../data/outputs/rasters/2018_07_16_trial_Diapause_armigera.nc", overwrite=TRUE,
+varname=colnames(df[7]))
 
 
 #=============================================================================================================

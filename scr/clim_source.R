@@ -20,6 +20,12 @@ source("./climate_stack.R")
 climate_stacks<-stack_params(my_dir, my_param)
 print(climate_stacks)
 print("climate_successfully_stacked")
+#generate and write out a list of the years included in the simulations, attined by the file names
+years<-year_list(my_dir, my_param)
+print(years)
+yrs<-as.data.frame(years)
+write.csv(yrs, paste(my_outdir, "year_list.csv", sep=""))
+
 
 source("./climate_crop.R")
 

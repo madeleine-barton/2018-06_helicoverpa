@@ -11,7 +11,7 @@
 #c) CTmax = where development stops, also depending on the threshold
 
 current_DD<-function(Ta, cur_stage, sp_data){
-  LDT<-sp_data[cur_stage,5]
+  LDT<-sp_data[cur_stage,15]
   CTmax<-sp_data[cur_stage,6]
   DD<-ifelse(((Ta>LDT) & (Ta<CTmax)),(Ta-LDT),0)
   return(DD)
@@ -92,9 +92,11 @@ linear_trans<-function(interval, RT_DD, cur_stage, cur_gen, sp_data){
 
 Lactin_trans<-function(interval, RT_DD, cur_stage, cur_gen, sp_data){
   if (interval == "hour"){
-    RT_DD<=RT_DD/24
-    }
-  if(1<RT_DD){ #if we've completed development of this stage
+    K=24
+  }else{
+    K=1
+  }
+  if(K<RT_DD){ #if we've completed development of this stage
      new_stage=cur_stage+1
      RT_DD=0
   }else{
@@ -118,7 +120,7 @@ Lactin_trans<-function(interval, RT_DD, cur_stage, cur_gen, sp_data){
 
 heat_stress<-function(Tmax, cur_stage, sp_data){
   CTmax<-sp_data[cur_stage,12]
-  HS<-ifelse((Tmax>CTmax), 1 ,0)
+  HS<-ifelse((min(Tmax)>CTmax), 1 ,0)
   return(as.numeric(HS))
 }
 
@@ -127,7 +129,7 @@ heat_stress<-function(Tmax, cur_stage, sp_data){
 
 cold_stress<-function(Tmin, cur_stage, sp_data){
   CTmin<-sp_data[cur_stage,5]
-  CS<-ifelse((Tmin<CTmin), 1 ,0)
+  CS<-ifelse((max(Tmin)<CTmin), 1 ,0)
   return(as.numeric(CS))
 }
 

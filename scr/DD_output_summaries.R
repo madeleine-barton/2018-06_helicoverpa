@@ -29,3 +29,7 @@ cold_deaths<-function(df){
      return(x)
 }
 
+diapause_hours<-function(df){
+     x<-aggregate(as.numeric(as.character(df$diapause)), by=list(df$SITE),sum)$x
+     return(x)
+}
