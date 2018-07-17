@@ -57,11 +57,15 @@ diapause_cond<-function(environ, cues, interval){
 #1=yes, diapause
 #0=no, keep developing
 
- for (i in(1:nrow(df))){
-  DL<-as.numeric(df$photophase[i])
-  season<-df$season[i]
-  TA<-temp[i]
- if (season_ind=="no_cue"){ 
+df$diapause[1]<-0 #never start the simulation in diapause
+ for (i in(2:nrow(df))){
+   DL<-as.numeric(df$photophase[i])
+   season<-df$season[i]
+   TA<-temp[i]
+   if((season=="Autumn")&(df$diapause[i-1]==1)){
+     df$diapause[i]<-1
+   }else{
+   if (season_ind=="no_cue"){ 
   #if the increasing/decreasing photoperiod pattern doesn't matter for induction
   #i.e. they can enter diapasue after winter solstice, but  needs to be spring
   #to come out of diapause
@@ -84,7 +88,8 @@ diapause_cond<-function(environ, cues, interval){
         df$diapause[i]<-0
       }}
   }#end if induction before./after winter soltstice
- }#end timestep loop
+ }#end checking previous hour in autumn
+}#end timestep loop
  return(df)
 }#end function
 

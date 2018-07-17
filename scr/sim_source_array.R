@@ -9,7 +9,9 @@ if (length(argv) <1)
 #print(length(argv))
 my_dir<-argv[1]
 my_param<-unlist(strsplit(argv[2],","))
-my_physiol<-read.csv(argv[4])
+species<-argv[4]
+my_physiol<-read.csv(paste("../data/inputs/sp_physiol/",species,"_physiol.csv", sep=""))
+climate<-argv[7]
 
 #===============================================================================================
 #Call in the climate data that has been prepared earlier
@@ -22,7 +24,9 @@ local<-as.numeric(argv[5]) #define the location that we want (array job number)
 tot_sites<-as.numeric(as.character(argv[6])) #the total number of array jobs possible
 #print(tot_sites)
 #read in the list of lat lons that have been generated with run_job, and select number of arrays
-my_points<-read.csv(argv[3])[(1:tot_sites),] 
+region<-argv[3]
+pointsfile<-paste(my_dir,"lat_lon_list_",region, ".csv", sep="")
+my_points<-read.csv(pointsfile)[(1:tot_sites),] 
 #print(nrow(my_points)) #check these for good luck
 
 #===============================================================================================
@@ -54,18 +58,34 @@ Tmax<-as.numeric(as.character(temps[,1]))
 #print(Tmax[1])
 	
 #turn daily min and maxs into hourly temperatures, and run checks
+#if daily, turn below two lines off and make interval = "day"
 source('./clim_daily_to_hourly.R')
 Ta<-convert_to_hourly(Tmin, Tmax)
+interval<-"hour"  #here, either "day" or "hour"
 #print(typeof(Ta))
 #print(length(Ta))
 #print(Ta[1:25])
+
+#======================================================================================================================
+#apply climate change scenario (current of future)
+print(climate)
+print(interval)
+if((climate=="plus3") & (interval=="hour")){
+	Ta<-Ta+3
+	Tmin<-Tmin+3
+	Tmax<-Tmax+3
+    }else{
+	if((climate=="plus3") & (interval=="day")){
+	Tmin<-Tmin+3
+	Tmax<-Tmax+3
+    }
+}
 
 #=========================================================================================================================
 #defining initial developmental and physiological conditions of the animal	
 init_stage<-1
 init_DD<-0
 init_gen<-0
-interval<-"hour"  #here, either "day" or "hour" 
 #(interval all lower case, affects timing of degree day simulations)
 #and the durations the an animal can withstand  heat or cold stress in hours
 CTS<-as.numeric(8) #number of hours insect can withstand cold stress **NOT** including current hour (if hourly, otherwise "0")
@@ -151,7 +171,7 @@ site_out$Ta<-Ta
 site_out$SITE<-j
 site_out$lat<-my_points[j,3]
 site_out$lon<-my_points[j,2] 
- 
+site_out<-as.data.frame(cbind(site_out, doy_info))
 RAW_DATA<-site_out
 print(nrow(RAW_DATA))
 print(min(as.numeric(as.character(RAW_DATA$diapause))))
@@ -177,7 +197,7 @@ print(head(output_sum))
 #===================================================================================================
 #Refine the output name so that files are listed in order from 1 to 99 (need to add 100-1000)
 loc_name<-ifelse((local<=9), paste("0",local,sep=""), paste(local))
-outname<-paste("armigera_array_trial_JOB_", loc_name, sep="")
+outname<-paste(region, species, climate, "site", loc_name, sep="_")
 print(outname)
 
 #==================================================================================================
