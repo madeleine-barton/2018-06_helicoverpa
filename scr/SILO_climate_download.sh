@@ -7,7 +7,7 @@
 
 
 #OUTDIR="../data/climate/"
-OUTDIR="/OSM/CBR/AF_DATASCHOOL/input/Maddie/helicoverpa/data/climate/" #set the out directory
+OUTDIR="/OSM/CBR/AF_DATASCHOOL/input/Maddie/2018-06_helicoverpa/data/inputs/climate/SILO/" #set the out directory
 #step through the lines in file (defined in the command line) IFS = makes  sure the
 #white space at the ends of the lines are not ignored. the while loop makes sure there
 #are still lines to be read, and the -n line pipe makes sure the last line in the file is

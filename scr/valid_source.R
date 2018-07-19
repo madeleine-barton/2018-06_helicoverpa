@@ -60,7 +60,7 @@ for (i in(1:(length(species)/2))){
 #map the relevant observations to a raster, and save with predictions
 
 #define prediction pathway and file
-pred_name<-paste(region, species[2], "currentdistribution", sep="_")
+pred_name<-paste(region, species[2], "current_distribution", sep="_")
 preds<-(paste('../data/outputs/rasters/', pred_name, ".nc", sep=""))
 print("the name of the preds file")
 print(preds)

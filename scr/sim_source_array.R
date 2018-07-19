@@ -19,19 +19,26 @@ climate<-argv[7]
 #but first stack the parameters together, so that the climate data from the 
 #desired points are extracted from the stack list more efficiently
 source('./climate_stack.R')
-my_stack<-stack_params(my_dir, my_param)
-local<-as.numeric(argv[5]) #define the location that we want (array job number)
-tot_sites<-as.numeric(as.character(argv[6])) #the total number of array jobs possible
-#print(tot_sites)
-#read in the list of lat lons that have been generated with run_job, and select number of arrays
+#call in the lat/loct with the regions specified in third column
+tot_sites<-as.numeric(as.character(argv[6])) #the total number of array jobs required
+print(tot_sites)
+
 region<-argv[3]
-pointsfile<-paste(my_dir,"lat_lon_list_",region, ".csv", sep="")
-my_points<-read.csv(pointsfile)[(1:tot_sites),] 
+pointsfile<-paste(my_dir,"lat_lon_list_", region,".csv", sep="")
+my_points<-read.csv(pointsfile)#[(1:tot_sites),] 
 #print(nrow(my_points)) #check these for good luck
+site_loc<-as.numeric(argv[5]) #define the location that we want (array job number)
+j<-site_loc
+loc_site<-site_loc
+
+locality<-my_points$region[site_loc] #the subsetted shape-file that we want
+
+my_stack<-stack_locality(my_dir, my_param, locality)
+#read in the list of lat lons that have been generated with run_job, and select number of arrays
 
 #===============================================================================================
 #call in the list of years that was already saved to file, only the second column is needed
-years<-read.csv(file=paste(my_dir,"year_list.csv", sep=""))[,2]
+years<-read.csv(file=paste(my_dir,region,"_year_list.csv", sep=""))[,2]
 print("the list of years")
 print(years)
 
@@ -45,8 +52,7 @@ source('./extract_climate_point_timeseries.R')
 RAW_DATA<-matrix() #set up an empty matrix into which the data is stored
 
 #just to be sure we have one site (j) that has been sent from run_array
-j=local
-print(j)
+
 #for(j in(1:nrow(my_points))){ #this is an artefact from when sites were run in series, keep for reference
 #define thermal conditions at the site
 temps<-point_timeseries(my_stack, my_param, my_points[j,2], my_points[j,3])
@@ -61,7 +67,7 @@ Tmax<-as.numeric(as.character(temps[,1]))
 #if daily, turn below two lines off and make interval = "day"
 source('./clim_daily_to_hourly.R')
 Ta<-convert_to_hourly(Tmin, Tmax)
-interval<-"hour"  #here, either "day" or "hour"
+interval<-"day"  #here, either "day" or "hour"
 #print(typeof(Ta))
 #print(length(Ta))
 #print(Ta[1:25])
@@ -88,7 +94,7 @@ init_DD<-0
 init_gen<-0
 #(interval all lower case, affects timing of degree day simulations)
 #and the durations the an animal can withstand  heat or cold stress in hours
-CTS<-as.numeric(8) #number of hours insect can withstand cold stress **NOT** including current hour (if hourly, otherwise "0")
+CTS<-as.numeric(0) #number of hours insect can withstand cold stress **NOT** including current hour (if hourly, otherwise "0")
 HTS<-as.numeric(0) #number of hours insect can withstand heat stress **NOT** including current hour (if hourly, otherwise "0")
 
 #=============================================================================================================================
@@ -196,7 +202,7 @@ print(head(output_sum))
 
 #===================================================================================================
 #Refine the output name so that files are listed in order from 1 to 99 (need to add 100-1000)
-loc_name<-ifelse((local<=9), paste("0",local,sep=""), paste(local))
+loc_name<-ifelse((site_loc<=9), paste("0",site_loc,sep=""), paste(site_loc))
 outname<-paste(region, species, climate, "site", loc_name, sep="_")
 print(outname)
 

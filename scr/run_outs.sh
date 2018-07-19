@@ -10,7 +10,7 @@ module load R/3.4.0
 # run R
 #cd project_directory
 indir=/OSM/CBR/AF_DATASCHOOL/input/Maddie/2018-06_helicoverpa/data/
-region=Tasmania
+region=NSW
 species=armigera
 climate=current
 

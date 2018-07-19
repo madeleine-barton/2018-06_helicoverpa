@@ -8,7 +8,7 @@ import argparse
 # bar823@pearcey-login:/flush1/bar823/scripts/extracting_vcf>
 
 
-# Loop over years, variablesm generate URL and write to output file
+# Loop over years and  variables to generate URL and write to output file
 
 def SILO_URLs(start, finish, variables, outfile):
     """download files and append to list, to write out"""

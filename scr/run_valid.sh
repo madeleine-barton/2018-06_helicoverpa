@@ -11,7 +11,7 @@ module load R/3.4.4
 val_dir=../data/inputs/sp_obs/
 species=Helicoverpa,armigera,Helicoverpa,punctigera
 database=ALA,gbif
-region=Tasmania
+region=NSW
 
 Rscript --vanilla valid_source.R ${val_dir} ${species} ${database} ${region}
 
