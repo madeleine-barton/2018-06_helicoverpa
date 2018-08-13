@@ -29,7 +29,7 @@ point_timeseries<-function(stack, parameters, lat, lon){
 	    b<-brick(unlist(stack[[j]]))  
   }
     #print(b)
-    x<-raster::extract(b, SpatialPoints(cbind(lat, lon)))[1:nlayers(b)]
+    x<-raster::extract(b, SpatialPoints(cbind(lon, lat)))[1:nlayers(b)]
     #points.sp <- (as.data.frame(cbind(lon, lat)))
     #coordinates(points.sp) <- ~ lon + lat
     #climate.points <- raster::extract(b, points.sp) #extract from the raster layers
